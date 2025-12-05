@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.example</groupId>
+  <artifactId>API</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>Archetype - API</name>
+  <url>http://maven.apache.org</url>
+</project>
+        import requests
+
+        # 1. POST - Crear usuario
+        url = "https://reqres.in/api/users"
+        payload = {
+        "name": "Test User",
+        "job": "Automation Engineer"
+        }
+
+        post_response = requests.post(url, json=payload)
+        assert post_response.status_code == 201
+
+        data = post_response.json()
+        user_id = data.get("id")
+        assert user_id is not None
+
+        # 2. GET - Consultar usuario
+        get_url = f"https://reqres.in/api/users/{user_id}"
+        get_response = requests.get(get_url)
+
+        assert get_response.status_code == 200
